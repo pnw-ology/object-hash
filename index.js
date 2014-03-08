@@ -2,6 +2,7 @@
 
 require('./lib/polyfills');
 var crypto = require('crypto');
+var debug = require('debug')('hasher');
 
 /**
  * Export hashing function
@@ -57,6 +58,7 @@ function typeHasher(hashFn, options){
     dispatch: function(value){
       var type = typeof value;
       var func = this['_' + type];
+      debug('dispatch');
       return (value === null) ? this._null() : func(value);
     },
     _object: function(object) {
@@ -64,6 +66,8 @@ function typeHasher(hashFn, options){
       var objString = Object.prototype.toString.call(object);
       var objType = pattern.exec(objString)[1] || 'null';
       objType = objType.toLowerCase();
+
+      debug('object type' + objType);
 
       if(objType !== 'object') {
         if(typeHasher(hashFn)['_' + objType]) {
@@ -83,32 +87,41 @@ function typeHasher(hashFn, options){
       }
     },
     _array: function(arr){
+      debug('array');
       return arr.forEach(function(el){
         typeHasher(hashFn).dispatch(el);
       });
     },
     _date: function(date){
+      debug('date: ' + date);
       return hashFn.update(date.toString());
     },
     _boolean: function(bool){
+      debug('bool: ' + bool);
       return hashFn.update(bool.toString());
     },
     _string: function(string){
+      debug('string: ' + string);
       return hashFn.update(string);
     },
     _function: function(fn){
+      debug('fn: ' + fn);
       return hashFn.update(fn.toString());
     },
     _number: function(number){
+      debug('number: ' + number);
       return hashFn.update(number.toString());
     },
     _xml: function(xml){
+      debug('xml: ' + xml);
       return hashFn.update(xml.toString());
     },
     _null: function(){
+      debug('Null');
       return hashFn.update('Null');
     },
     _domwindow: function(){
+      debug('domwindow');
       return hashFn.update('domwindow');
     }
   };

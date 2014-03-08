@@ -32,7 +32,8 @@
     "gulp-rename": "~1.2.0"
   },
   "dependencies": {
-    "tape": "~2.10.2"
+    "tape": "~2.10.2",
+    "debug": "^0.7.4"
   },
   "engines": {
     "node": ">= 0.8.0"
