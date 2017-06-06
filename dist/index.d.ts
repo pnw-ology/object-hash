@@ -57,4 +57,4 @@ export declare function keysMD5(object: any): any;
  * @param {object} stream  A stream to write the serializiation to
  * @api public
  */
-export declare function writeToStream(object: any, options: any, stream: any): any;
+export declare function writeToStream(object: any, options: OptionsObject, stream: any): any;

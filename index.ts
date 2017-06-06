@@ -1,10 +1,8 @@
 /* typescript version ported from: puleos/object-hash by Brian Johnson */
 
-declare function require(name: string);
-declare const Buffer;
-const crypto = require('crypto');  
-
-
+declare const Buffer: any;
+declare var require: (moduleId: string) => any;
+const crypto = require('crypto');
 
 /**
  * Exported function
@@ -60,16 +58,16 @@ export function objectHash(object: object, options?: OptionsObject) {
  * @return {string} hash value
  * @api public
  */
-export function sha1 (object) {
+export function sha1(object: any) {
     return objectHash(object);
 };
-export function keys (object) {
+export function keys(object: any) {
     return objectHash(object, { excludeValues: true, algorithm: 'sha1', encoding: 'hex' });
 };
-export function MD5 (object) {
+export function MD5(object: any) {
     return objectHash(object, { algorithm: 'md5', encoding: 'hex' });
 };
-export function keysMD5 (object) {
+export function keysMD5(object: any) {
     return objectHash(object, { algorithm: 'md5', encoding: 'hex', excludeValues: true });
 };
 
@@ -78,7 +76,7 @@ let hashes = crypto.getHashes ? crypto.getHashes().slice() : ['sha1', 'md5'];
 hashes.push('passthrough');
 let encodings = ['buffer', 'hex', 'binary', 'base64'];
 
-function applyDefaults(object, options) {
+function applyDefaults(object: any, options?: OptionsObject) {
     options = options || {};
     options.algorithm = options.algorithm || 'sha1';
     options.encoding = options.encoding || 'hex';
@@ -100,7 +98,7 @@ function applyDefaults(object, options) {
     // if there is a case-insensitive match in the hashes list, accept it
     // (i.e. SHA256 for sha256)
     for (let i = 0; i < hashes.length; ++i) {
-        if (hashes[i].toLowerCase() === options.algorithm.toLowerCase()) {
+        if (options.algorithm && hashes[i].toLowerCase() === options.algorithm.toLowerCase()) {
             options.algorithm = hashes[i];
         }
     }
@@ -120,7 +118,7 @@ function applyDefaults(object, options) {
 }
 
 /** Check if the given function is a native function */
-function isNativeFunction(f) {
+function isNativeFunction(f:Function) {
     if ((typeof f) !== 'function') {
         return false;
     }
@@ -128,7 +126,7 @@ function isNativeFunction(f) {
     return exp.exec(Function.prototype.toString.call(f)) != null;
 }
 
-function hash(object, options) {
+function hash(object:any, options:OptionsObject) {
     let hashingStream;
 
     if (options.algorithm !== 'passthrough') {
@@ -167,7 +165,7 @@ function hash(object, options) {
  * @param {object} stream  A stream to write the serializiation to
  * @api public
  */
-export function writeToStream (object, options, stream) {
+export function writeToStream(object:any, options:OptionsObject, stream:any) {
     if (typeof stream === 'undefined') {
         stream = options;
         options = {};
@@ -181,14 +179,14 @@ export function writeToStream (object, options, stream) {
 function typeHasher(options: OptionsObject, writeTo?: StreamObject, context?: string | Array<string>) {
     context = context || [];
     let write = function (str: string, encoding?: string) {
-        if (writeTo.update)
+        if (writeTo && writeTo.update)
             return writeTo.update(str, 'utf8');
         else
-            return writeTo.write(str, 'utf8');
+            if (writeTo && writeTo.write) { return writeTo.write!(str, 'utf8'); } else { return; }
     }
 
     return {
-        dispatch: function (value) {
+        dispatch: function (value:any) {
             if (options.replacer) {
                 value = options.replacer(value);
             }
@@ -201,10 +199,10 @@ function typeHasher(options: OptionsObject, writeTo?: StreamObject, context?: st
 
             return this['_' + <string>type](value);
         },
-        _object: function (object) {
+        _object: function (object:any) {
             let pattern = (/\[object (.*)\]/i);
             let objString = Object.prototype.toString.call(object);
-            let objType: string | RegExpExecArray = pattern.exec(objString);
+            let objType: string | null | RegExpExecArray = pattern.exec(objString);
             if (!objType) { // object type did not match [object ...]
                 objType = 'unknown:[' + objString + ']';
             } else {
@@ -262,14 +260,14 @@ function typeHasher(options: OptionsObject, writeTo?: StreamObject, context?: st
                 });
             }
         },
-        _array: function (arr, unordered) {
+        _array: function (arr:any, unordered:any) {
             unordered = typeof unordered !== 'undefined' ? unordered :
                 options.unorderedArrays !== false; // default to options.unorderedArrays
 
             let self = this;
             write('array:' + arr.length + ':');
             if (!unordered || arr.length <= 1) {
-                return arr.forEach(function (entry) {
+                return arr.forEach(function (entry:any) {
                     return self.dispatch(entry);
                 });
             }
@@ -283,37 +281,38 @@ function typeHasher(options: OptionsObject, writeTo?: StreamObject, context?: st
             // since the order of hashing should *not* matter. instead,
             // we keep track of the additions to a copy of the context array
             // and add all of them to the global context array when we’re done
-            let contextAdditions = [];
-            let entries = arr.map(function (entry) {
+            let contextAdditions:Array<any> = [];
+            let entries = arr.map(function (entry:any) {
                 let strm = (<any>Object).create(PassThrough());
-                let localContext = context.slice(); // make copy
+                let localContext = context!.slice(); // make copy
                 let hasher = typeHasher(options, strm, localContext);
                 hasher.dispatch(entry);
                 // take only what was added to localContext and append it to contextAdditions
-                contextAdditions = contextAdditions.concat(localContext.slice(context.length));
+                contextAdditions = contextAdditions.concat(localContext.slice(context!.length));
                 return strm.read().toString();
             });
             context = (<any>context).concat(contextAdditions);
             entries.sort();
             return this._array(entries, false);
         },
-        _date: function (date) {
+        _date: function (date:Date) {
             return write('date:' + date.toJSON());
         },
-        _symbol: function (sym) {
+        _symbol: function (sym:Symbol) {
             return write('symbol:' + sym.toString());
         },
-        _error: function (err) {
+        _error: function (err:Error) {
             return write('error:' + err.toString());
         },
-        _boolean: function (bool) {
+        _boolean: function (bool:Boolean
+        ) {
             return write('bool:' + bool.toString());
         },
-        _string: function (string) {
+        _string: function (string:string) {
             write('string:' + string.length + ':');
             write(string);
         },
-        _function: function (fn) {
+        _function: function (fn:Function) {
             write('fn:');
             if (isNativeFunction(fn)) {
                 this.dispatch('[native]');
@@ -332,10 +331,10 @@ function typeHasher(options: OptionsObject, writeTo?: StreamObject, context?: st
                 this._object(fn);
             }
         },
-        _number: function (number) {
+        _number: function (number:Number) {
             return write('number:' + number.toString());
         },
-        _xml: function (xml) {
+        _xml: function (xml:XMLDocument) {
             return write('xml:' + xml.toString());
         },
         _null: function () {
@@ -344,58 +343,58 @@ function typeHasher(options: OptionsObject, writeTo?: StreamObject, context?: st
         _undefined: function () {
             return write('Undefined');
         },
-        _regexp: function (regex) {
+        _regexp: function (regex:RegExp) {
             return write('regex:' + regex.toString());
         },
-        _uint8array: function (arr) {
+        _uint8array: function (arr:Array<any>) {
             write('uint8array:');
             return this.dispatch(Array.prototype.slice.call(arr));
         },
-        _uint8clampedarray: function (arr) {
+        _uint8clampedarray: function (arr:Array<any>) {
             write('uint8clampedarray:');
             return this.dispatch(Array.prototype.slice.call(arr));
         },
-        _int8array: function (arr) {
+        _int8array: function (arr:Array<any>) {
             write('uint8array:');
             return this.dispatch(Array.prototype.slice.call(arr));
         },
-        _uint16array: function (arr) {
+        _uint16array: function (arr:Array<any>) {
             write('uint16array:');
             return this.dispatch(Array.prototype.slice.call(arr));
         },
-        _int16array: function (arr) {
+        _int16array: function (arr:Array<any>) {
             write('uint16array:');
             return this.dispatch(Array.prototype.slice.call(arr));
         },
-        _uint32array: function (arr) {
+        _uint32array: function (arr:Array<any>) {
             write('uint32array:');
             return this.dispatch(Array.prototype.slice.call(arr));
         },
-        _int32array: function (arr) {
+        _int32array: function (arr:Array<any>) {
             write('uint32array:');
             return this.dispatch(Array.prototype.slice.call(arr));
         },
-        _float32array: function (arr) {
+        _float32array: function (arr:Array<any>) {
             write('float32array:');
             return this.dispatch(Array.prototype.slice.call(arr));
         },
-        _float64array: function (arr) {
+        _float64array: function (arr:Array<any>) {
             write('float64array:');
             return this.dispatch(Array.prototype.slice.call(arr));
         },
-        _arraybuffer: function (arr) {
+        _arraybuffer: function (arr:Array<any>) {
             write('arraybuffer:');
             return this.dispatch(new Uint8Array(arr));
         },
-        _url: function (url) {
+        _url: function (url:URL) {
             return write('url:' + url.toString());
         },
-        _map: function (map) {
+        _map: function (map: Map<string,any>) {
             write('map:');
             let arr = Array.from(map);
             return this._array(arr, options.unorderedSets !== false);
         },
-        _set: function (set) {
+        _set: function (set:Set<any>) {
             write('set:');
             let arr = Array.from(set);
             return this._array(arr, options.unorderedSets !== false);
@@ -439,11 +438,11 @@ function PassThrough() {
     return {
         buf: '',
 
-        write: function (b) {
+        write: function (b:any) {
             this.buf += b;
         },
 
-        end: function (b) {
+        end: function (b:any) {
             this.buf += b;
         },
 

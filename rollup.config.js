@@ -1,9 +1,16 @@
 export default {
-  format: 'umd',
-  moduleName: 'ngresizable',
-  external: [
-    '@angular/core',
-    '@angular/common'
-  ]
-};
-
+    entry: 'dist/index.js',
+    dest: 'dist/bundles/ts-object-hash.umd.js',
+    sourceMap: false,
+    format: 'umd',
+    moduleName: 'ng.tsObjectHash',
+    globals: {
+        '@angular/core': 'ng.core',
+        'rxjs/Observable': 'Rx',
+        'rxjs/ReplaySubject': 'Rx',
+        'rxjs/add/operator/map': 'Rx.Observable.prototype',
+        'rxjs/add/operator/mergeMap': 'Rx.Observable.prototype',
+        'rxjs/add/observable/fromEvent': 'Rx.Observable',
+        'rxjs/add/observable/of': 'Rx.Observable'
+    }
+}

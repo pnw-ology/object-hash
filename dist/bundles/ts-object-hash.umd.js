@@ -1,3 +1,9 @@
+(function (global, factory) {
+	typeof exports === 'object' && typeof module !== 'undefined' ? factory(exports) :
+	typeof define === 'function' && define.amd ? define(['exports'], factory) :
+	(factory((global.ng = global.ng || {}, global.ng.tsObjectHash = global.ng.tsObjectHash || {})));
+}(this, (function (exports) { 'use strict';
+
 /* typescript version ported from: puleos/object-hash by Brian Johnson */
 var crypto = require('crypto');
 /**
@@ -37,14 +43,12 @@ var OptionsObject = (function () {
     }
     return OptionsObject;
 }());
-export { OptionsObject };
 var StreamObject = (function () {
     function StreamObject() {
     }
     return StreamObject;
 }());
-export { StreamObject };
-export function objectHash(object, options) {
+function objectHash(object, options) {
     options = applyDefaults(object, options);
     return hash(object, options);
 }
@@ -55,22 +59,22 @@ export function objectHash(object, options) {
  * @return {string} hash value
  * @api public
  */
-export function sha1(object) {
+function sha1(object) {
     return objectHash(object);
 }
-;
-export function keys(object) {
+
+function keys(object) {
     return objectHash(object, { excludeValues: true, algorithm: 'sha1', encoding: 'hex' });
 }
-;
-export function MD5(object) {
+
+function MD5(object) {
     return objectHash(object, { algorithm: 'md5', encoding: 'hex' });
 }
-;
-export function keysMD5(object) {
+
+function keysMD5(object) {
     return objectHash(object, { algorithm: 'md5', encoding: 'hex', excludeValues: true });
 }
-;
+
 // Internals
 var hashes = crypto.getHashes ? crypto.getHashes().slice() : ['sha1', 'md5'];
 hashes.push('passthrough');
@@ -151,7 +155,7 @@ function hash(object, options) {
  * @param {object} stream  A stream to write the serializiation to
  * @api public
  */
-export function writeToStream(object, options, stream) {
+function writeToStream(object, options, stream) {
     if (typeof stream === 'undefined') {
         stream = options;
         options = {};
@@ -159,7 +163,7 @@ export function writeToStream(object, options, stream) {
     options = applyDefaults(object, options);
     return typeHasher(options, stream).dispatch(object);
 }
-;
+
 function typeHasher(options, writeTo, context) {
     context = context || [];
     var write = function (str, encoding) {
@@ -424,4 +428,16 @@ function PassThrough() {
         }
     };
 }
-//# sourceMappingURL=index.js.map
+
+exports.OptionsObject = OptionsObject;
+exports.StreamObject = StreamObject;
+exports.objectHash = objectHash;
+exports.sha1 = sha1;
+exports.keys = keys;
+exports.MD5 = MD5;
+exports.keysMD5 = keysMD5;
+exports.writeToStream = writeToStream;
+
+Object.defineProperty(exports, '__esModule', { value: true });
+
+})));
