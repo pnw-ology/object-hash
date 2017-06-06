@@ -1,13 +1,19 @@
 {
     "compilerOptions": {
-        "typeRoots": ["node_modules/@types"],
-        "target": "es6",
-        "module": "umd",
+        "target": "es5",
+        "module": "es2015",
         "sourceMap": true,
         "moduleResolution": "node",
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
-        "outDir": "",
+        "declaration": true,
+        "outDir": "./dist",
         "lib": ["es2015", "dom"]
+    },
+    "files": [
+        "./index.ts"
+    ],
+    "angularCompilerOptions": {
+        "skipTemplateCodegen": true
     }
 }
