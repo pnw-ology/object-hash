@@ -18,7 +18,9 @@
     },
     "scripts": {
         "test": "node ./node_modules/.bin/mocha test",
-        "prepublish": "tsc && gulp dist"
+        "prepublish": "tsc && gulp dist",
+        "build": "rimraf dist && tsc -p tsconfig-esm.json && rollup -c rollup.config.js ENTRY_FILE > OUTPUT_BUNDLE_FILE && cp package.json dist && ts-node tools/cleanup.ts && ngc && cp README.md dist",
+        "lint": "tslint -c tslint.json lib/**/*.ts test/**/*.ts"
     },
     "author": "Brian Johnson <brian.johnson.23@icloud.com >",
     "license": "MIT",
