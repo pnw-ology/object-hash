@@ -1,3 +1,7 @@
+# ts-object-hash is a port of object-hash to typescript
+
+Original readme follows:
+
 # object-hash
 
 Generate hashes from objects and values in node and the browser.  Uses node.js

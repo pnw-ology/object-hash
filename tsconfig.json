@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+        "typeRoots": ["node_modules/@types"],
+        "target": "es6",
+        "module": "umd",
+        "sourceMap": true,
+        "moduleResolution": "node",
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "outDir": "",
+        "lib": ["es2015", "dom"]
+    }
+}
