@@ -2,7 +2,7 @@
 
 var assert = require('assert');
 var crypto = require('crypto');
-var hash = require('../index');
+var hash = require('../dist/index');
 var validSha1 = /^[0-9a-f]{40}$/i;
 var validBase64 = /^([A-Za-z0-9+\/]{4})*([A-Za-z0-9+\/==]{4})$/;
 
