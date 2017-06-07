@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { objectHash } from 'ts-object-hash';
 
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -13,6 +14,6 @@ export class AppComponent {
   constructor() {
     console.log('objectHash:', objectHash);
     this.hash1= objectHash({a:1,b:2});
-    this.hash1= objectHash({b:2,a:1});
+    this.hash2= objectHash({b:2,a:1});
   }
 }
