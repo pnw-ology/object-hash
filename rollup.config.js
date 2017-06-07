@@ -1,6 +1,6 @@
 export default {
     entry: 'dist/index.js',
-    dest: 'dist/bundles/ts-object-hash.umd.js',
+    dest: 'dist/bundles/index.js',
     sourceMap: false,
     format: 'umd',
     moduleName: 'ng.tsObjectHash',

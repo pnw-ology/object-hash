@@ -20,7 +20,7 @@
         "test": "node ./node_modules/.bin/mocha test",
         "transpile": "node_modules/.bin/ngc",
         "package": "rollup -c",
-        "minify": "uglifyjs dist/bundles/ts-object-hash.umd.js --screw-ie8 --compress --mangle --comments --output dist/bundles/ts-object-hash.umd.min.js",
+        "minify": "uglifyjs dist/bundles/index.js --screw-ie8 --compress --mangle --comments --output dist/bundles/ts-object-hash.umd.min.js",
         "build": "npm run transpile && npm run package && npm run minify && cp './package.json' './dist'"
     },
     "author": "Brian Johnson <brian.johnson.23@icloud.com >",
@@ -58,7 +58,8 @@
     "engines": {
         "node": ">= 0.10.0"
     },
-    "main": "bundles/ts-object-hash.umd.js",
-    "module": "index.js",
-    "typings": "index.d.ts"
+    "main": "./bundles/index.js",
+    "jsnext:main": "./index.js",
+    "module": "./index.js",
+    "dependencies": {}
 }

@@ -22,7 +22,7 @@
     "@angular/router": "^4.0.0",
     "core-js": "^2.4.1",
     "rxjs": "^5.1.0",
-    "ts-object-hash": "git+https://git@github.com/pnw-ology/ts-object-hash.git",
+    "ts-object-hash": "git+https://git@github.com/pnw-ology/ts-object-hash.git#feature/demo",
     "zone.js": "^0.8.4"
   },
   "devDependencies": {
