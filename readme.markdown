@@ -1,5 +1,7 @@
 # ts-object-hash is a port of object-hash to typescript
 
+## In the folder "demo" you'll find a simple Angular application that uses the ported code.
+
 Original readme follows:
 
 # object-hash
