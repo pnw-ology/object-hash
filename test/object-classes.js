@@ -3,7 +3,7 @@
 var assert = require('assert');
 var crypto = require('crypto');
 var stream = require('stream');
-var hash = require('../dist/bundles/ts-object-hash.umd.js');
+var hash = require('../dist/bundles/index.js');
 var validSha1 = /^[0-9a-f]{40}$/i;
 
 describe('hash.objectHash() objects with custom class names', function() {

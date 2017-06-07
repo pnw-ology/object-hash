@@ -2,7 +2,7 @@
 
 var assert = require('assert');
 var stream = require('stream');
-var hash = require('../dist/bundles/ts-object-hash.umd.js');
+var hash = require('../dist/bundles/index.js');
 
 describe('replacer option', function() {
     it('should emit information about an object to a stream', function() {

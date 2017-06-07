@@ -1,65 +1,67 @@
 {
-    "name": "ts-object-hash",
-    "version": "0.0.1",
-    "description": "Generate hashes from javascript objects in node and the browser.",
-    "homepage": "https://github.com/pnw-ology/ts-object-hash",
-    "repository": {
-        "type": "git",
-        "url": "https://github.com/pnw-ology/ts-object-hash"
-    },
-    "keywords": [
-        "object",
-        "hash",
-        "sha1",
-        "md5"
-    ],
-    "bugs": {
-        "url": "https://github.com/pnw-ology/ts-object-hash/issues"
-    },
-    "scripts": {
-        "test": "node ./node_modules/.bin/mocha test",
-        "transpile": "node_modules/.bin/ngc",
-        "package": "rollup -c",
-        "minify": "uglifyjs dist/bundles/index.js --screw-ie8 --compress --mangle --comments --output dist/bundles/ts-object-hash.umd.min.js",
-        "build": "npm run transpile && npm run package && npm run minify && cp './package.json' './dist'"
-    },
-    "author": "Brian Johnson <brian.johnson.23@icloud.com >",
-    "license": "MIT",
-    "devDependencies": {
-        "@angular/compiler": "^4.1.3",
-        "@angular/core": "^4.1.3",
-        "@angular/compiler-cli": "^4.1.3",
-        "@types/node": "^7.0.27",
-        "browserify": "^13.0.0",
-        "gulp": "^3.9.0",
-        "gulp-browserify": "^0.5.1",
-        "gulp-coveralls": "^0.1.4",
-        "gulp-exec": "^2.1.2",
-        "gulp-istanbul": "^0.10.3",
-        "gulp-jshint": "^2.0.0",
-        "gulp-mocha": "^2.2.0",
-        "gulp-rename": "^1.2.0",
-        "gulp-uglify": "^1.5.1",
-        "jshint": "^2.8.0",
-        "jshint-stylish": "^2.1.0",
-        "karma": "^0.13.15",
-        "karma-chrome-launcher": "^0.2.2",
-        "karma-firefox-launcher": "^0.1.7",
-        "karma-mocha": "^0.2.1",
-        "karma-phantomjs-launcher": "^0.2.1",
-        "mocha": "^2.3.4",
-        "nodemon": "^1.11.0",
-        "phantomjs": "^1.9.19",
-        "rollup": "^0.42.0",
-        "ts-node": "^3.0.4",
-        "typescript": "^2.3.4",
-        "uglify-js": "^3.0.15"
-    },
-    "engines": {
-        "node": ">= 0.10.0"
-    },
-    "main": "./bundles/index.js",
-    "jsnext:main": "./index.js",
-    "module": "./index.js",
-    "dependencies": {}
+  "name": "ts-object-hash",
+  "version": "0.0.1",
+  "description": "Generate hashes from javascript objects in node and the browser.",
+  "homepage": "https://github.com/pnw-ology/ts-object-hash",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pnw-ology/ts-object-hash"
+  },
+  "keywords": [
+    "object",
+    "hash",
+    "sha1",
+    "md5"
+  ],
+  "bugs": {
+    "url": "https://github.com/pnw-ology/ts-object-hash/issues"
+  },
+  "scripts": {
+    "test": "node ./node_modules/.bin/mocha test",
+    "transpile": "node_modules/.bin/ngc",
+    "package": "rollup -c",
+    "minify": "uglifyjs dist/bundles/index.js --screw-ie8 --compress --mangle --comments --output dist/bundles/ts-object-hash.umd.min.js",
+    "build": "npm run transpile && npm run package && npm run minify && cp './package.json' './dist'"
+  },
+  "author": "Brian Johnson <brian.johnson.23@icloud.com >",
+  "license": "MIT",
+  "devDependencies": {
+    "@angular/compiler": "^4.1.3",
+    "@angular/core": "^4.1.3",
+    "@angular/compiler-cli": "^4.1.3",
+    "@types/node": "^7.0.27",
+    "browserify": "^13.0.0",
+    "gulp": "^3.9.0",
+    "gulp-browserify": "^0.5.1",
+    "gulp-coveralls": "^0.1.4",
+    "gulp-exec": "^2.1.2",
+    "gulp-istanbul": "^0.10.3",
+    "gulp-jshint": "^2.0.0",
+    "gulp-mocha": "^2.2.0",
+    "gulp-rename": "^1.2.0",
+    "gulp-uglify": "^1.5.1",
+    "jshint": "^2.8.0",
+    "jshint-stylish": "^2.1.0",
+    "karma": "^0.13.15",
+    "karma-chrome-launcher": "^0.2.2",
+    "karma-firefox-launcher": "^0.1.7",
+    "karma-mocha": "^0.2.1",
+    "karma-phantomjs-launcher": "^0.2.1",
+    "mocha": "^2.3.4",
+    "nodemon": "^1.11.0",
+    "phantomjs": "^1.9.19",
+    "rollup": "^0.42.0",
+    "ts-node": "^3.0.4",
+    "typescript": "^2.3.4",
+    "uglify-js": "^3.0.15"
+  },
+  "engines": {
+    "node": ">= 0.10.0"
+  },
+  "main": "./bundles/index.js",
+  "jsnext:main": "./index.js",
+  "module": "./index.js",
+  "dependencies": {
+    "webcrypto": "^0.1.0"
+  }
 }

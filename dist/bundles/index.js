@@ -5,7 +5,7 @@
 }(this, (function (exports) { 'use strict';
 
 /* typescript version ported from: puleos/object-hash by Brian Johnson */
-var crypto = require('crypto');
+var crypto = require('webcrypto');
 /**
  * Exported function
  *

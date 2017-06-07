@@ -1,7 +1,7 @@
 'use strict';
 
 var assert = require('assert');
-var hash = require('../dist/bundles/ts-object-hash.umd.js');
+var hash = require('../dist/bundles/index.js');
 
 if (typeof Blob !== 'undefined') {
     describe('hash()ing Blob objects', function() {

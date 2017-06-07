@@ -2,7 +2,7 @@
 
 declare const Buffer: any;
 declare var require: (moduleId: string) => any;
-const crypto = require('crypto');
+const crypto = require('webcrypto');
 
 /**
  * Exported function
