@@ -37,7 +37,7 @@ export declare class StreamObject {
     write?: Function;
     update?: Function;
 }
-export declare function objectHash(object: object, options?: OptionsObject): any;
+export declare function objectHash(object: object, options?: OptionsObject): string;
 /**
  * Exported sugar methods
  *
@@ -45,10 +45,10 @@ export declare function objectHash(object: object, options?: OptionsObject): any
  * @return {string} hash value
  * @api public
  */
-export declare function sha1(object: any): any;
-export declare function keys(object: any): any;
-export declare function MD5(object: any): any;
-export declare function keysMD5(object: any): any;
+export declare function sha1(object: any): string;
+export declare function keys(object: any): string;
+export declare function MD5(object: any): string;
+export declare function keysMD5(object: any): string;
 /**
  * Expose streaming API
  *

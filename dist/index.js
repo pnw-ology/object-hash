@@ -58,19 +58,15 @@ export function objectHash(object, options) {
 export function sha1(object) {
     return objectHash(object);
 }
-;
 export function keys(object) {
     return objectHash(object, { excludeValues: true, algorithm: 'sha1', encoding: 'hex' });
 }
-;
 export function MD5(object) {
     return objectHash(object, { algorithm: 'md5', encoding: 'hex' });
 }
-;
 export function keysMD5(object) {
     return objectHash(object, { algorithm: 'md5', encoding: 'hex', excludeValues: true });
 }
-;
 // Internals
 var hashes = crypto.getHashes ? crypto.getHashes().slice() : ['sha1', 'md5'];
 hashes.push('passthrough');
@@ -116,7 +112,7 @@ function isNativeFunction(f) {
         return false;
     }
     var exp = /^function\s+\w*\s*\(\s*\)\s*{\s+\[native code\]\s+}$/i;
-    return exp.exec(Function.prototype.toString.call(f)) != null;
+    return exp.exec(Function.prototype.toString.call(f)) !== null;
 }
 function hash(object, options) {
     var hashingStream;
@@ -132,8 +128,9 @@ function hash(object, options) {
     }
     var hasher = typeHasher(options, hashingStream);
     hasher.dispatch(object);
-    if (!hashingStream.update)
+    if (!hashingStream.update) {
         hashingStream.end('');
+    }
     if (hashingStream.digest) {
         return hashingStream.digest(options.encoding === 'buffer' ? undefined : options.encoding);
     }
@@ -159,7 +156,6 @@ export function writeToStream(object, options, stream) {
     options = applyDefaults(object, options);
     return typeHasher(options, stream).dispatch(object);
 }
-;
 function typeHasher(options, writeTo, context) {
     context = context || [];
     var write = function (str, encoding) {
@@ -303,7 +299,7 @@ function typeHasher(options, writeTo, context) {
                 // Make sure we can still distinguish native functions
                 // by their name, otherwise String and Function will
                 // have the same hash
-                this.dispatch("function-name:" + String(fn.name));
+                this.dispatch('function-name:' + String(fn.name));
             }
             if (options.respectFunctionProperties) {
                 this._object(fn);
